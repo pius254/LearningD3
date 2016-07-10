@@ -1,12 +1,20 @@
 d3.select("#chart")
+//adding the svg
         .append("svg")
             .attr("width",600)
             .attr("height",400)
             .style("background", "#708284")
+//adding a rectangle to the svg
         .append("rect")
             .attr("x", 200)
             .attr("y", 100)
             .attr("width", 200)
             .attr("height", 200)
             .style("background", "#D11C24")
-
+//adding a circle inside the the rectangle
+d3.select("svg")
+            .append("circle")
+            .attr("cx", 300)
+            .attr("cy", 200)
+            .attr("r", 50)
+            .style("fill", "#C61C6F")
