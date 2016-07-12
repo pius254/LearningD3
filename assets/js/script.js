@@ -24,7 +24,10 @@ d3.select("svg")
 .on("mouseout", function() { d3.select(this).attr("opacity", 1); })
 
 //creating barchart
-var barData=[20, 30, 40, 50, 60, 50, 40, 30,20, 50, 10, 80, 90, 60, 50, 40, 30,20, 50, 10, 80, 40];
+var barData=[];
+for (var i=0; i<100; i++){
+    barData.push(Math.random()*30)
+}
 
 var width=1000,
     height=380,
