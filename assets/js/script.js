@@ -26,8 +26,8 @@ d3.select("svg")
 //creating barchart
 var barData=[20, 30, 40, 50, 60];
 
-var width=950,
-    height=350,
+var width=1000,
+    height=380,
     barWidth=50,
     barOffset=5;
     
