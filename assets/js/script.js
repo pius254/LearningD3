@@ -24,7 +24,7 @@ d3.select("svg")
 .on("mouseout", function() { d3.select(this).attr("opacity", 1); })
 
 //creating barchart
-var barData=[20, 30, 40, 50, 60];
+var barData=[20, 30, 40, 50, 60, 50, 40, 30,20];
 
 var width=1000,
     height=380,
@@ -35,3 +35,15 @@ d3.select("#bChart").append("svg")
         .attr("width", width)
         .attr("height", height)
         .style("background", "#259286")
+        .selectAll("rect").data(barData)
+        .enter().append("rect")
+        .attr("width", barWidth)
+        .attr("height", function(d){
+            return d;
+        })
+        .attr("x", function(d,i){
+           return i * (barOffset + barWidth);
+        })
+        .attr("y", function(d){
+           return height-d;
+        })
