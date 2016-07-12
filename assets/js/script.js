@@ -29,6 +29,10 @@ for (var i=0; i<100; i++){
     barData.push(Math.random()*30)
 }
 
+var colors = d3.scale.linear()
+        .domain([0, barData.length*.33, barData.length*.66, barData.length])
+        .range(["green", "salmon", "orange", "cyan"])
+
 var width=1000,
     height=380,
     barWidth=50,
@@ -47,7 +51,7 @@ var xScale = d3.scale.ordinal()
 d3.select("#bChart").append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("background", "#259286")
+        //.style("background", "#259286")
         .selectAll("rect").data(barData)
         .enter().append("rect")
         .attr("width", xScale.rangeBand())
@@ -60,4 +64,6 @@ d3.select("#bChart").append("svg")
         .attr("y", function(d){
            return height-yScale(d);
         })
-        .style("fill", "#C61C6F")
+        .style("fill", function(d, i){
+            return colors(i);
+        })
