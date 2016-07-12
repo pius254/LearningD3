@@ -31,25 +31,30 @@ var width=1000,
     barWidth=50,
     barOffset=5;
  
-//fits the height(max) of the barcharts to the height of the svg
+//fitting the height(max) of the barcharts to the height of the svg
 var yScale = d3.scale.linear()
         .domain([0, d3.max(barData)])
         .range([0, height])
-    
+
+//fitting the barcharts horizontally to avoid the overflow
+var xScale = d3.scale.ordinal()
+        .domain(d3.range(0, barData.length))
+        .rangeBands([0, width])
+
 d3.select("#bChart").append("svg")
         .attr("width", width)
         .attr("height", height)
         .style("background", "#259286")
         .selectAll("rect").data(barData)
         .enter().append("rect")
-        .attr("width", barWidth)
+        .attr("width", xScale.rangeBand())
         .attr("height", function(d){
             return yScale(d);
         })
         .attr("x", function(d,i){
-           return i * (barOffset + barWidth);
+           return xScale(i);
         })
         .attr("y", function(d){
            return height-yScale(d);
         })
-         .style("fill", "#C61C6F")
+        .style("fill", "#C61C6F")
