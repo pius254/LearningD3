@@ -24,12 +24,17 @@ d3.select("svg")
 .on("mouseout", function() { d3.select(this).attr("opacity", 1); })
 
 //creating barchart
-var barData=[20, 30, 40, 50, 60, 50, 40, 30,20];
+var barData=[20, 30, 40, 50, 60, 50, 40, 30,20, 50, 10, 80, 90, 60, 50, 40, 30,20, 50, 10, 80, 40];
 
 var width=1000,
     height=380,
     barWidth=50,
     barOffset=5;
+ 
+//fits the height(max) of the barcharts to the height of the svg
+var yScale = d3.scale.linear()
+        .domain([0, d3.max(barData)])
+        .range([0, height])
     
 d3.select("#bChart").append("svg")
         .attr("width", width)
@@ -39,11 +44,12 @@ d3.select("#bChart").append("svg")
         .enter().append("rect")
         .attr("width", barWidth)
         .attr("height", function(d){
-            return d;
+            return yScale(d);
         })
         .attr("x", function(d,i){
            return i * (barOffset + barWidth);
         })
         .attr("y", function(d){
-           return height-d;
+           return height-yScale(d);
         })
+         .style("fill", "#C61C6F")
