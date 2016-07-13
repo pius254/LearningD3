@@ -39,6 +39,10 @@ var width=1000,
     barOffset=5;
     
 var tempColor;
+
+barData.sort(function compareNumber(a, b){
+    return a-b;
+})
  
 //fitting the height(max) of the barcharts to the height of the svg
 var yScale = d3.scale.linear()
@@ -61,6 +65,7 @@ var myChart = d3.select("#bChart").append("svg")
         .attr("width", width)
         .attr("height", height)
         //.style("background", "#259286")
+        .append("g")
         .selectAll("rect").data(barData)
         .enter().append("rect")
         .attr("width", xScale.rangeBand())
