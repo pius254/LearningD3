@@ -50,22 +50,18 @@ var xScale = d3.scale.ordinal()
         .domain(d3.range(0, barData.length))
         .rangeBands([0, width])
 
-d3.select("#bChart").append("svg")
+var myChart = d3.select("#bChart").append("svg")
         .attr("width", width)
         .attr("height", height)
         //.style("background", "#259286")
         .selectAll("rect").data(barData)
         .enter().append("rect")
         .attr("width", xScale.rangeBand())
-        .attr("height", function(d){
-            return yScale(d);
-        })
+        .attr("height", 0)
         .attr("x", function(d,i){
            return xScale(i);
         })
-        .attr("y", function(d){
-           return height-yScale(d);
-        })
+        .attr("y", height)
         .style("fill", function(d, i){
             return colors(i);
         })
@@ -82,3 +78,17 @@ d3.select("#bChart").append("svg")
             .style("opacity", 1)
             .style("fill", tempColor)
         })
+        
+//adding a transition to the chart
+        myChart.transition()
+            .attr("height", function(d){
+            return yScale(d);
+        })
+            .attr("y", function(d){
+           return height-yScale(d);
+        })
+            .delay(function(d, i){
+                    return i * 20;
+        })
+            .duration(1000)
+            .ease("elastic")
