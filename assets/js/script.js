@@ -37,6 +37,8 @@ var width=1000,
     height=380,
     barWidth=50,
     barOffset=5;
+    
+var tempColor;
  
 //fitting the height(max) of the barcharts to the height of the svg
 var yScale = d3.scale.linear()
@@ -66,4 +68,17 @@ d3.select("#bChart").append("svg")
         })
         .style("fill", function(d, i){
             return colors(i);
+        })
+        
+//adding mouseover and mouseout events that affects the opacity and the color of the bars    
+        .on("mouseover", function(d){
+            tempColor = this.style.fill;
+            d3.select(this)
+            .style("opacity", .5)
+            .style("fill", "yellow")
+        })
+        .on("mouseout", function(d){
+            d3.select(this)
+            .style("opacity", 1)
+            .style("fill", tempColor)
         })
