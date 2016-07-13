@@ -26,7 +26,7 @@ d3.select("svg")
 //creating barchart
 var barData=[];
 for (var i=0; i<100; i++){
-    barData.push(Math.random()*30)
+    barData.push(Math.round(Math.random()*30) + 20)
 }
 
 var colors = d3.scale.linear()
@@ -50,6 +50,13 @@ var xScale = d3.scale.ordinal()
         .domain(d3.range(0, barData.length))
         .rangeBands([0, width])
 
+//adding tooltip to the bars
+var tooltip = d3.select("body").append("div")
+        .style("position", "absolute")
+        .style("padding", "0 10px")
+        .style("background", "white")
+        .style("opacity", 0)
+
 var myChart = d3.select("#bChart").append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -68,6 +75,14 @@ var myChart = d3.select("#bChart").append("svg")
         
 //adding mouseover and mouseout events that affects the opacity and the color of the bars    
         .on("mouseover", function(d){
+            
+        tooltip.transition()
+            .style("opacity", .9)
+    
+        tooltip.html(d)
+             .style("left", (d3.event.pageX - 35) + "px")
+             .style("top", (d3.event.pageY- 30) + "px")
+            
             tempColor = this.style.fill;
             d3.select(this)
             .style("opacity", .5)
